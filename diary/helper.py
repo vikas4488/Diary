@@ -134,6 +134,7 @@ class Help:
     @staticmethod
     def logout(request):
         Session.objects.all().delete()
+        return "logged out"
 
 
 
