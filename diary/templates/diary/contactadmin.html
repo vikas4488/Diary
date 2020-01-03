@@ -1,0 +1,57 @@
+{% load static %}
+<html {{style.bgclr}}>
+    <head>
+        <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="google" content="notranslate">
+    <link rel="stylesheet" type="text/css" href="{% static 'diary/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'utils/bootstrap.min.css' %}">
+    <script src="{% static 'utils/bootstrap.min.js' %}"></script>
+    <script src="{% static 'utils/jquery.min.js' %}"></script>
+    <script src="{% static 'diary/language.js' %}"></script>
+</head>
+<body class="noselect">
+ {% ifnotequal  popmsg "empty" %}
+    <div class="popwrap"><div class="popmsg " {{ style.popupclr}}><div>{{popmsg}}</div><div class="closeconfirm " {{ style.btncnf}}> <span class="lan confirm_label"></span></div></div></div>
+    {% endifnotequal  %}
+<div class="super-block" style="{{css.bgclr}}" >
+
+                <div class="mynav" style="{{css.navclr}}" >
+			        <div class="homewrap" style="margin-left: 12px;"><div class="homebtn"></div></div>
+			        <div class="diary">DIARY</div>
+			        <div class="lans">{{lan}}</div>
+			    </div>
+
+
+			 <div class="big-block" style="{{css.cardclr}}">
+
+
+				<form action="{% url 'contactadmin' %}" method="post" class="login100-form validate-form">
+                {% csrf_token %}
+
+					<div><span class="lan pls_sbmt_fbdbk labelclr" style="padding:7px;border-radius: 5px;"></span></div>
+
+
+                    <textarea class="feedback" style="{{css.ipclr}}" name="message" ></textarea>
+
+
+						<button class="log-reg btnpro" style="{{css.navclr}} width:auto;">
+							<span class="lan send_to_admin"></span>
+						</button>
+
+
+				</form>
+			</div>
+			</div>
+		</div>
+<script>
+    var navigation="{% url 'navigation' %}";
+</script>
+	{% ifequal lan "हिंदी" %}
+       <script> var savelan="en";</script>
+    {% else  %}
+       <script> var savelan="hi";</script>
+    {% endifequal  %}
+    <script src="{% static 'diary/custom.js' %}"></script>
+</body>
+</html>
