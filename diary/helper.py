@@ -136,7 +136,7 @@ class Help:
     @staticmethod
     def logout(request):
         Session.objects.all().delete()
-        return "logged out"
+        return "logged out sucess"
 
     @staticmethod
     def getmessages(request):
