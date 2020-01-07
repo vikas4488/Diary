@@ -1,6 +1,7 @@
 from .models import MhqEmpData,Theme,MhqEmpFeedback as mef,MhqEmp
 from datetime import datetime
 from django.contrib.sessions.models import Session
+from django.db.models import Q
 class Help:
     @staticmethod
     def colorhelp(allcolor):
@@ -119,6 +120,7 @@ class Help:
         w.userid=request.session['userid']
         w.message=request.POST['message']
         w.status='unread'
+        w.touser='admin'
         w.edate=datetime.now()
         w.save()
         return 'message sent'
@@ -135,6 +137,12 @@ class Help:
     def logout(request):
         Session.objects.all().delete()
         return "logged out"
+
+    @staticmethod
+    def getmessages(request):
+        m=mef.objects.filter(Q(userid=request.session['userid'])|Q(touser=request.session['userid']))
+        return m
+
 
 
 

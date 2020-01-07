@@ -403,3 +403,31 @@
      });
 
    });
+
+   $(function () {
+    $('.sendmsg').on('click', function (e) {
+        var objDiv = document.getElementById("msg_wrap_id");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        msg=$(".feedback").text();
+        $(".hiddenmsg").val(msg);
+        $(".feedback").text('');
+        $(".msg_wrap").append('<div class="send_div"><div class="send_msg"><div class="chat-pop-right">'+msg+'</div></div></div><div class="tick jssent">⸮</div><br>')    
+        var objDiv = document.getElementById("msg_wrap_id");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        $.ajax({
+        type: 'post',
+        url: sendmsg,
+        dataType: 'text',
+        data: $(this).parent().serialize(),
+        success: function (response) {
+            var status = response;
+            $(".jssent").html("✓");
+            $(".jssent").removeClass("jssent");
+        }
+      });
+
+    });
+
+  });
+  var objDiv = document.getElementById("msg_wrap_id");
+        objDiv.scrollTop = objDiv.scrollHeight;

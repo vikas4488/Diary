@@ -31,6 +31,7 @@ class Theme(models.Model):
 
 class MhqEmpFeedback(models.Model):
     userid = models.CharField(max_length=200)
+    touser=models.CharField(max_length=200)
     message = models.CharField(max_length=1000)
     status = models.CharField(max_length=200)
     edate = models.DateTimeField('entry date')

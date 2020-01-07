@@ -61,10 +61,12 @@ def contactadmin(request):
     if 'userid' not in request.session:
         return redirect(index)
     else:
-        if request.method == 'POST':
+        if request.is_ajax():
             message=hp.submitToAdmin(request)
+            return HttpResponse(message)
         color=hp.colorhelp(request.session['color'])
-        return render(request, 'diary/contactadmin.html',{'lan':request.session['lan'],'css':color["css"],'style':color["style"],'popmsg':'empty'})
+        msg=hp.getmessages(request)
+        return render(request, 'diary/contactadmin.html',{'lan':request.session['lan'],'css':color["css"],'style':color["style"],'popmsg':'empty','message':msg})
 def help(request):
     if 'userid' not in request.session:
         return redirect(index)

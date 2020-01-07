@@ -23,21 +23,27 @@
 			    </div>
 
 
-			 <div class="big-block" style="{{css.cardclr}}">
-
-
-				<form action="{% url 'contactadmin' %}" method="post" class="login100-form validate-form">
+			 <div style="margin: 30px;">
+             <div class="msg_wrap" id="msg_wrap_id">
+             {% for msg in message %}
+             {% ifnotequal msg.touser 'admin' %}
+                <div class="send_div"><div class="receive_msg" ><div class="chat-pop-left">{{msg.message}}</div></div></div>
+             {% else %}
+             {% ifequal msg.status 'read' %}
+                <div class="send_div"><div class="send_msg" ><div class="chat-pop-right">{{msg.message}}</div></div></div><div class="tick">✓✓</div><br>
+             {% else %}
+             <div class="send_div"><div class="send_msg" ><div class="chat-pop-right">{{msg.message}}</div></div></div><div class="tick">✓</div><br>
+             {% endifequal %}
+             {% endifnotequal %}
+             {% endfor %}
+             </div>
+				<form class="msg-form">
                 {% csrf_token %}
-
-					<div><span class="lan pls_sbmt_fbdbk labelclr" style="padding:7px;border-radius: 5px;"></span></div>
-
-
-                    <textarea class="feedback" style="{{css.ipclr}}" name="message" ></textarea>
-
-
-						<button class="log-reg btnpro" style="{{css.navclr}} width:auto;">
-							<span class="lan send_to_admin"></span>
-						</button>
+                    <div class="feedback" style="{{css.ipclr}}" contenteditable></div>
+                    <input type="hidden" name="message" class="hiddenmsg"/>
+						<div class="sendmsg imgicon">
+						<img  style="height: 36px;position: absolute;" src="media/diary/icons8send.png" alt="img"/>
+						</div>
 
 
 				</form>
@@ -46,6 +52,7 @@
 		</div>
 <script>
     var navigation="{% url 'navigation' %}";
+    var sendmsg="{% url 'contactadmin' %}"
 </script>
 	{% ifequal lan "हिंदी" %}
        <script> var savelan="en";</script>
